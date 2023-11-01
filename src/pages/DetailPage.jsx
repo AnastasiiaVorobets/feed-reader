@@ -57,7 +57,6 @@ function DetailPage({ postId }) {
         {comments.slice(0, visibleComments).map((comment) => (
           <li key={comment.id} className='comments__item'>
             <h4>{formatTitle(comment.name)}</h4>
-            <h4>{formatTitle(comment.name)}</h4>
             <p>{formatTitle(comment.body)}</p>
           </li>
         ))}
