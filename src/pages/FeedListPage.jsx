@@ -86,7 +86,7 @@ function FeedListPage() {
       <div className="back">
         <button
           className="back__button"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate('/')}
         >
           Go Back
         </button>
@@ -105,6 +105,7 @@ function FeedListPage() {
           onChange={(e) => setNewPostData({ ...newPostData, title: e.target.value })}
         />
         <textarea
+        className='text'
           placeholder="Body"
           value={newPostData.body}
           onChange={(e) => setNewPostData({ ...newPostData, body: e.target.value })}

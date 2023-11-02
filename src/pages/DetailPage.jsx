@@ -47,7 +47,7 @@ function DetailPage({ postId }) {
       <div className="back">
         <button
           className="back__button"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate('/feeds')}
         >
           Go Back
         </button>
