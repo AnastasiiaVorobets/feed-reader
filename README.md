@@ -9,7 +9,7 @@
 - NPM
 - React
 - JS
-- CSS (Flexbox, Transformation)
+- SCSS (Flexbox, Transformation)
 - BEM
 
 ## To run the project
