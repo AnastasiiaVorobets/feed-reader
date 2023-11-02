@@ -1,17 +1,14 @@
-import '../styles/DetailPage.css';
-import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ShowMoreButton from '../components/ShowMoreButton/ShowMoreButton';
+import { formatTitle } from '../helpers/formatTitle';
+import '../styles/style.scss'
 
 function DetailPage({ postId }) {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [visibleComments, setVisibleComments] = useState(7);
   const navigate = useNavigate();
-
-  function formatTitle(title) {
-    return title.charAt(0).toUpperCase() + title.slice(1);
-  }
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -26,7 +23,6 @@ function DetailPage({ postId }) {
           throw new Error('Failed to fetch comments');
         }
       } catch (error) {
-        setError(error);
         setLoading(false);
       }
     };
@@ -34,40 +30,35 @@ function DetailPage({ postId }) {
     fetchComments();
   }, [postId]);
 
-  if (loading) {
-    return <div>Loading comments...</div>;
-  }
-
-  if (error) {
-    return <div>Error loading comments: {error.message}</div>;
-  }
-
   return (
     <div>
-      <div className="back">
-        <button
-          className="back__button"
-          onClick={() => navigate('/feeds')}
-        >
-          Go Back
-        </button>
-      </div>
-      <h3>Comments:</h3>
-      <ul className='comments__list'>
-        {comments.slice(0, visibleComments).map((comment) => (
-          <li key={comment.id} className='comments__item'>
-            <h4>{formatTitle(comment.name)}</h4>
-            <p>{formatTitle(comment.body)}</p>
-          </li>
-        ))}
-      </ul>
-      {visibleComments < comments.length && (
-        <button
-          onClick={() => setVisibleComments((prevVisibleComments) => prevVisibleComments + 7)} 
-          className="show-more-button"
-        >
-          Show More
-        </button>
+      {loading ? (
+        <h5>Loading comments...</h5>
+      ) : (
+        <div>
+          <header className="back">
+            <button
+              className="back__button"
+              onClick={() => navigate('/feeds')}
+            >
+              Go Back
+            </button>
+          </header>
+          <h3>Comments:</h3>
+          <ul className='list'>
+            {comments.slice(0, visibleComments).map((comment) => (
+              <li key={comment.id} className='list__item'>
+                <h4>{formatTitle(comment.name)}</h4>
+                <p>{formatTitle(comment.body)}</p>
+              </li>
+            ))}
+          </ul>
+          {visibleComments < comments.length && (
+          <ShowMoreButton
+            onClick={() => setVisibleComments((prevVisibleComments) => prevVisibleComments + 7)} 
+          />
+      )}
+        </div>
       )}
     </div>
   );

@@ -1,0 +1,23 @@
+.show-more-button {
+  display: block;
+  margin: 50px auto;
+  height: 60px;
+  width: 400px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    animation: colorChange 0.5s alternate infinite;
+  }
+}
+
+@keyframes colorChange {
+  0% {
+    background-color: black;
+  }
+  100% {
+    background-color: rgb(235, 241, 208);
+    color: black;
+  }
+}

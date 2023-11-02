@@ -1,29 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import '../styles/FeedListPage.css';
+import PostList from '../components/PostList/PostList';
 
 function FeedListPage() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
   const [visiblePosts, setVisiblePosts] = useState(7);
   const [newPostData, setNewPostData] = useState({ title: '', body: '' });
 
   useEffect(() => {
-    setError(null);
     setLoading(true);
 
     fetch('https://jsonplaceholder.typicode.com/posts')
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(res)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response)
         } else {
-          return res.json()
+          return response.json()
         }
       })
       .then(setPosts)
-      .catch((e) => setError(e))
+      .catch(error => {
+        console.error('Error deleting post:', error);
+      })
       .finally(() => setLoading(false))
   }, [])
 
@@ -65,7 +63,7 @@ function FeedListPage() {
         return response.json();
       } else {
         console.error('Failed to create post');
-        throw new Error('Failed to create post');
+        throw Error('Failed to create post');
       }
     })
     .then(createdPost => {
@@ -77,73 +75,20 @@ function FeedListPage() {
     });
   };
 
-  function formatTitle(title) {
-    return title.charAt(0).toUpperCase() + title.slice(1);
-  }
-
   return (
     <div>
-      <div className="back">
-        <button
-          className="back__button"
-          onClick={() => navigate('/')}
-        >
-          Go Back
-        </button>
-      </div>
-
-      <h2>Posts</h2>
-
-      <form
-        onSubmit={handleCreatePost}
-        className='create__post'
-      >
-        <input
-          type="text"
-          placeholder="Title"
-          value={newPostData.title}
-          onChange={(e) => setNewPostData({ ...newPostData, title: e.target.value })}
+      {loading ? (
+        <h5>Loading posts...</h5>
+      ) : (
+        <PostList
+          posts={posts}
+          handleDeletePost={handleDeletePost}
+          visiblePosts={visiblePosts}
+          setVisiblePosts={setVisiblePosts}
+          handleCreatePost={handleCreatePost}
+          newPostData={newPostData}
+          setNewPostData={setNewPostData}
         />
-        <textarea
-        className='text'
-          placeholder="Body"
-          value={newPostData.body}
-          onChange={(e) => setNewPostData({ ...newPostData, body: e.target.value })}
-        />
-        <button
-          type="submit"
-          className='create__button'
-        >
-          Create Post
-        </button>
-      </form>
-
-      <ul className='list'>
-        {posts.slice(0, visiblePosts).map((post) => (
-          <li className='list__item' key={post.id}>
-            <h3>{formatTitle(post.title)}</h3>
-            <p>{formatTitle(post.body)}</p>
-            <Link to={`/feeds/${post.id}`} className="detail__link">
-              Read More
-            </Link>
-            
-            <button
-              className='delete__button'
-              onClick={() => handleDeletePost(post.id)}
-            >
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
-
-      {visiblePosts < posts.length && (
-        <button
-          onClick={() => setVisiblePosts((prevVisiblePosts) => prevVisiblePosts + 7)} 
-          className="show-more-button"
-        >
-          Show More
-        </button>
       )}
     </div>
   );
