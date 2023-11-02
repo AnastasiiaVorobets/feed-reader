@@ -7,7 +7,7 @@ import '../styles/style.scss'
 function DetailPage({ postId }) {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [visibleComments, setVisibleComments] = useState(7);
+  const [visibleComments, setVisibleComments] = useState(3);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,12 +36,19 @@ function DetailPage({ postId }) {
         <h5>Loading comments...</h5>
       ) : (
         <div>
-          <header className="back">
+          <header className="buttons">
             <button
-              className="back__button"
+              className="button"
               onClick={() => navigate('/feeds')}
             >
-              Go Back
+              Back
+            </button>
+
+            <button
+              className="button"
+              onClick={() => navigate('/')}
+            >
+              LogOut
             </button>
           </header>
           <h3>Comments:</h3>
@@ -55,7 +62,7 @@ function DetailPage({ postId }) {
           </ul>
           {visibleComments < comments.length && (
           <ShowMoreButton
-            onClick={() => setVisibleComments((prevVisibleComments) => prevVisibleComments + 7)} 
+            onClick={() => setVisibleComments((prevVisibleComments) => prevVisibleComments + 3)}
           />
       )}
         </div>

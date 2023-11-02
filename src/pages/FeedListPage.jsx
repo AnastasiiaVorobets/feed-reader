@@ -4,7 +4,7 @@ import PostList from '../components/PostList/PostList';
 function FeedListPage() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [visiblePosts, setVisiblePosts] = useState(7);
+  const [visiblePosts, setVisiblePosts] = useState(3);
   const [newPostData, setNewPostData] = useState({ title: '', body: '' });
 
   useEffect(() => {

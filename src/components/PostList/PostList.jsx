@@ -18,12 +18,19 @@ function PostList({
 
   return (
     <div>
-      <header className="back">
+      <header className="buttons">
         <button
-          className="back__button"
+          className="button"
           onClick={() => navigate('/')}
         >
-          Go Back
+          Back
+        </button>
+
+        <button
+          className="button"
+          onClick={() => navigate('/')}
+        >
+          LogOut
         </button>
       </header>
 
@@ -76,7 +83,7 @@ function PostList({
       </ul>
 
       {visiblePosts < posts.length && (
-        <ShowMoreButton onClick={() => setVisiblePosts((prevVisiblePosts) => prevVisiblePosts + 7)} />
+        <ShowMoreButton onClick={() => setVisiblePosts((prevVisiblePosts) => prevVisiblePosts + 3)} />
       )}
     </div>
   );

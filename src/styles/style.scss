@@ -27,25 +27,36 @@ h5 {
     padding: 20px;
     background-color: rgb(200, 220, 232);
     border: 1px solid black;
+    transition: all 0.5s;
+
+    &:hover {
+      background-color: rgb(186, 213, 228);;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      cursor: pointer;
+    }
   }
 }
 
-.back {
-  height: 80px;
+.buttons {
+  height: 100px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0 150px;
   align-items: center;
+  background-color: rgb(210, 219, 219);
+  border-bottom: 2px solid black;
+}
+
+.button {
+  width: 100px;
+  height: 40px;
   background-color: rgb(0, 0, 0);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.5s;
 
-  &__button {
-    width: 150px;
-    height: 40px;
-    background-color: rgb(224, 224, 224);
-    cursor: pointer;
-    transition: transform 0.5s;
-
-    &:hover {
-      transform: scale(110%);
-    }
+  &:hover {
+    transform: scale(110%);
   }
 }
