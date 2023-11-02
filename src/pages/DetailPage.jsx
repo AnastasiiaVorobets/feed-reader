@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ShowMoreButton from '../components/ShowMoreButton/ShowMoreButton';
-import Header from '../components/Header/Header';
 import { formatTitle } from '../helpers/formatTitle';
-import '../styles/style.scss'
+import readerImage from '../images/readerImage.png'
+import '../styles/style.scss';
+
+
 
 function DetailPage({ postId }) {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [visibleComments, setVisibleComments] = useState(3);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -35,7 +39,27 @@ function DetailPage({ postId }) {
         <h5>Loading comments...</h5>
       ) : (
         <div>
-          <Header />
+          <header className="header">
+            <button
+              className="button"
+              onClick={() => navigate('/feeds')}
+            >
+              Back
+            </button>
+
+            <img
+              src={readerImage}
+              alt="reader"
+              className='reader__image'
+            />
+
+            <button
+              className="button"
+              onClick={() => navigate('/')}
+            >
+             LogOut
+           </button>
+        </header>
           <h3>Comments:</h3>
           <ul className='list'>
             {comments.slice(0, visibleComments).map((comment) => (

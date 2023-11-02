@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link , useNavigate} from 'react-router-dom';
 import ShowMoreButton from '../ShowMoreButton/ShowMoreButton';
-import Header from '../Header/Header';
 import { formatTitle } from '../../helpers/formatTitle';
+import readerImage from '../../images/readerImage.png'
 import '../../styles/style.scss';
 import './PostList.scss';
 
@@ -17,6 +17,8 @@ function PostList({
 }) {
   const [showForm, setShowForm] = useState(false);
 
+  const navigate = useNavigate();
+
   const toggleForm = () => {
     setShowForm(!showForm);
   };
@@ -27,7 +29,27 @@ function PostList({
 
   return (
     <div>
-      <Header />
+      <header className="header">
+        <button
+          className="button"
+          onClick={() => navigate('/')}
+        >
+          Back
+        </button>
+
+        <img
+          src={readerImage}
+          alt="reader"
+          className='reader__image'
+        />
+
+        <button
+          className="button"
+          onClick={() => navigate('/')}
+        >
+          LogOut
+        </button>
+      </header>
       <h2>Posts</h2>
       <button
         onClick={toggleForm}
