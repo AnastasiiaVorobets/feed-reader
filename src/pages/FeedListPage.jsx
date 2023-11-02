@@ -44,7 +44,8 @@ function FeedListPage() {
       });
   };
 
-  const handleCreatePost = () => {
+  const handleCreatePost = (e) => {
+    e.preventDefault();
 
     if (!newPostData.title || !newPostData.body) {
       return;
@@ -76,21 +77,19 @@ function FeedListPage() {
   };
 
   return (
-    <div>
-      {loading ? (
-        <h5>Loading posts...</h5>
-      ) : (
-        <PostList
-          posts={posts}
-          handleDeletePost={handleDeletePost}
-          visiblePosts={visiblePosts}
-          setVisiblePosts={setVisiblePosts}
-          handleCreatePost={handleCreatePost}
-          newPostData={newPostData}
-          setNewPostData={setNewPostData}
-        />
-      )}
-    </div>
+    loading ? (
+      <h5>Loading posts...</h5>
+    ) : (
+      <PostList
+        posts={posts}
+        handleDeletePost={handleDeletePost}
+        visiblePosts={visiblePosts}
+        setVisiblePosts={setVisiblePosts}
+        handleCreatePost={handleCreatePost}
+        newPostData={newPostData}
+        setNewPostData={setNewPostData}
+      />
+    )
   );
 }
 
